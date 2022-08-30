@@ -12,19 +12,21 @@ class convolution():
 
         def zero_padding(self,A):
                 '''
-                A: numpy Array python shape(H,W) where Heigh h, Width W,
-                return
+                Arguments:
+                A: numpy Array python shape(H,W) where Heigh h, Width W
+
+                Returns:
                 A_pad: (H+2*pad,W+2*pad)
                 '''
                 A_pad = np.pad(A,(self.padding))
                 return A_pad
+
         def conv_step(self,a_slice):
             """
            
             Arguments:
             a_slice -- slice of input data of shape (f, f)
             W -- Weight parameters contained in a window - matrix of shape (f, f)
-            b -- Bias parameters contained in a window - matrix of shape (1, 1, 1)
             
             Returns:
             Z -- a scalar value
@@ -33,6 +35,7 @@ class convolution():
             # Element-wise
             s = np.multiply(a_slice, self.kernel)
             Z = np.sum(s)
+            #for Bias =1
             Z = Z + 1.0
             return Z
 
@@ -40,11 +43,12 @@ class convolution():
             """
             Forward propagation for a convolution  
             Arguments:
-            A -- output activations of the previous layer, numpy array of shape ( Height,width)
-            batch for the numbers of input images
+            A -- output activations of the previous layer, numpy array of shape (Height,width)
+                
             Returns:
             Z -- conv output, numpy array of shape (Height, Width)
-         
+            
+            batch for the numbers of input images
             """
 
             (H,Width) = A.shape
@@ -70,15 +74,12 @@ class convolution():
                             x_start = w * self.stride
                             x_end = x_start + f
                             
-                            a_slice_prev = a_prev_pad[y_start:y_end, x_start:x_end, :]
+                            a_slice_prev = a_prev_pad[y_start:y_end, x_start:x_end]
                             Z[h, w] = self.conv_step(a_slice_prev)
                             
-            return Z       
-          
-                    
+            return Z   
 
+        def backprop(self):
 
-
-        
-    
-
+            pass
+                
