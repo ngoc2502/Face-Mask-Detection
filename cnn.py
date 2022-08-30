@@ -4,11 +4,11 @@ import numpy as np
 
 
 class convolution():
-    def __init__(self,kernel,padding:0,strike:0,outputSize):
-        self.kernel=kernel
-        self.padding=padding
-        self.strike=strike
-        self.outputSize=outputSize
+        def __init__(self,kernel,padding:0,strike:0,outputSize):
+            self.kernel=kernel
+            self.padding=padding
+            self.strike=strike
+            self.outputSize=outputSize
 
         def zero_padding(A,pad):
                 '''
@@ -33,11 +33,10 @@ class convolution():
             # Element-wise
             s = np.multiply(a_slice, W)
             Z = np.sum(s)
-            # Add bias b to Z. Cast b to a float() so that Z results in a scalar value.
             Z = Z + float(b)
             return Z
 
-        def conv_forward(A, W, b, hparameters):
+        def conv_forward(A, W, b, parameters):
             """
             Forward propagation for a convolution
             
@@ -45,11 +44,11 @@ class convolution():
             A -- output activations of the previous layer, numpy array of shape (m, H,w)
             W -- Weights, numpy array of shape (f, f)
             b -- Biases, numpy array of shape (1, 1, 1)
-            hparameters -- python dictionary containing "stride" and "pad"
+            hparameters -- python dictionary ( stride,pad)
                 
             Returns:
             Z -- conv output, numpy array of shape (m, H, W)
-            cache -- cache of values needed for the conv_backward() function
+            cache -for back propagation
             """
 
             (m, H,W) = A.shape
@@ -58,8 +57,8 @@ class convolution():
             (f, f) = W.shape
             
             # Retrieve information from "hparameters" (≈2 lines)
-            stride = hparameters['stride']
-            pad = hparameters['pad']
+            stride = parameters['stride']
+            pad = parameters['pad']
             
             # Compute the dimensions of the CONV output volume using the formula given above. Hint: use int() to floor. (≈2 lines)
             n_H = int((H - f + 2 * pad) / stride) + 1
@@ -84,8 +83,7 @@ class convolution():
                             
                             a_slice_prev = a_prev_pad[y_start:y_end, x_start:x_end, :]
                             
-                            # Convolve the (3D) slice with the correct filter W and bias b, to get back one output neuron. (≈1 line)
-                            #Z[i, h, w] = conv_step(a_slice_prev, W[...], b[...])
+                           
                                                 
                     
 
