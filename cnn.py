@@ -10,15 +10,15 @@ class convolution():
             self.strike=strike
             self.outputSize=outputSize
 
-        def zero_padding(A,pad):
+        def zero_padding(self,A):
                 '''
                 A: numpy Array python shape(H,W) where Heigh h, Width W,
                 return
                 A_pad: (H+2*pad,W+2*pad)
                 '''
-                A_pad = np.pad(A,(pad))
+                A_pad = np.pad(A,(self.padding))
                 return A_pad
-        def conv_step(a_slice, W):
+        def conv_step(self,a_slice, W):
             """
            
             Arguments:
@@ -36,7 +36,7 @@ class convolution():
             Z = Z + 1.0
             return Z
 
-        def forward(A, W, parameters):
+        def forward(self,A, W):
             """
             Forward propagation for a convolution  
             Arguments:
@@ -55,27 +55,23 @@ class convolution():
             (f, f) = W.shape
            
             # Compute the dimensions of the CONV output volume 
-            n_H = int((H - f + 2 * pad) / stride) + 1
-            n_W = int((W - f + 2 * pad) / stride) + 1
-                
-            # Retrieve information from "hparameters"
-            stride = parameters['stride']
-            pad = parameters['pad']
+            n_H = int((H - f + 2 * self.padding) / self.stride) + 1
+            n_W = int((W - f + 2 * self.padding) / self.stride) + 1
 
             # Initialize the output volume Z with zeros.
             Z = np.zeros((m, n_H, n_W))
             
             # Create A_prev_pad by padding A_prev
-            A_pad = zero_padding(A, pad)
+            A_pad = zero_padding(A, self.padding)
              # loop over the batch of training examples
             for i in range(m):                              
                 a_prev_pad = A_pad[i]                             
                 for h in range(n_H):                          
                     for w in range(n_W):                       
                             # Find the corners 
-                            y_start = h * stride
+                            y_start = h * self.stride
                             y_end = y_start + f
-                            x_start = w * stride
+                            x_start = w * self.stride
                             x_end = x_start + f
                             
                             a_slice_prev = a_prev_pad[y_start:y_end, x_start:x_end, :]
