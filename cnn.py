@@ -53,18 +53,18 @@ class convolution():
 
             (m, H,W) = A.shape
             
-            # Retrieve dimensions from W's shape (≈1 line)
+            # Retrieve dimensions from W's shape
             (f, f) = W.shape
             
-            # Retrieve information from "hparameters" (≈2 lines)
+            # Retrieve information from "hparameters"
             stride = parameters['stride']
             pad = parameters['pad']
             
-            # Compute the dimensions of the CONV output volume using the formula given above. Hint: use int() to floor. (≈2 lines)
+            # Compute the dimensions of the CONV output volume 
             n_H = int((H - f + 2 * pad) / stride) + 1
             n_W = int((W - f + 2 * pad) / stride) + 1
             
-            # Initialize the output volume Z with zeros. (≈1 line)
+            # Initialize the output volume Z with zeros.
             Z = np.zeros((m, n_H, n_W))
             
             # Create A_prev_pad by padding A_prev
@@ -84,7 +84,7 @@ class convolution():
                             a_slice_prev = a_prev_pad[y_start:y_end, x_start:x_end, :]
                             
                            
-                                                
+          
                     
 
 
