@@ -1,3 +1,3 @@
 # Face-Mask-Detection
-Using CNN for face detection 
+Using CNN for face mask detection 
 
