@@ -20,16 +20,14 @@ class convolution():
                 return A_pad
         def conv_step(a_slice, W, b):
             """
-            Apply one filter defined by parameters W on a single slice (a_slice) of the output activation 
-            of the previous layer.
-            
+           
             Arguments:
-            a_slice -- slice of input data of shape (f, f, n_C_prev)
-            W -- Weight parameters contained in a window - matrix of shape (f, f, n_C_prev)
+            a_slice -- slice of input data of shape (f, f)
+            W -- Weight parameters contained in a window - matrix of shape (f, f)
             b -- Bias parameters contained in a window - matrix of shape (1, 1, 1)
             
             Returns:
-            Z -- a scalar value, result of convolving the sliding window (W, b) on a slice x of the input data
+            Z -- a scalar value
             """
 
             # Element-wise
@@ -45,8 +43,8 @@ class convolution():
             
             Arguments:
             A -- output activations of the previous layer, numpy array of shape (m, H,w)
-            W -- Weights, numpy array of shape (f, f, n_C_prev, n_C)
-            b -- Biases, numpy array of shape (1, 1, 1, n_C)
+            W -- Weights, numpy array of shape (f, f)
+            b -- Biases, numpy array of shape (1, 1, 1)
             hparameters -- python dictionary containing "stride" and "pad"
                 
             Returns:
