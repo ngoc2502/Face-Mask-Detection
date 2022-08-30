@@ -50,8 +50,6 @@ class convolution():
             """
 
             (m, H,W) = A.shape
-            
-            # Retrieve dimensions from W's shape
             (f, f) = W.shape
            
             # Compute the dimensions of the CONV output volume 
