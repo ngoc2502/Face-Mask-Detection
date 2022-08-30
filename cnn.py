@@ -71,7 +71,7 @@ class convolution():
                             x_end = x_start + f
                             
                             a_slice_prev = a_prev_pad[y_start:y_end, x_start:x_end, :]
-                            Z[h, w] = self.conv_step(a_slice_prev, self.kernel[:, :])
+                            Z[h, w] = self.conv_step(a_slice_prev)
                             
             return Z       
           
