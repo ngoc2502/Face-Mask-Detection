@@ -18,7 +18,7 @@ class convolution():
                 '''
                 A_pad = np.pad(A,(pad))
                 return A_pad
-        def conv_step(a_slice, W, b):
+        def conv_step(a_slice, W):
             """
            
             Arguments:
@@ -33,21 +33,20 @@ class convolution():
             # Element-wise
             s = np.multiply(a_slice, W)
             Z = np.sum(s)
-            Z = Z + float(b)
+            Z = Z + 1.0
             return Z
 
-        def forward(A, W, b, \parameters):
+        def forward(A, W, parameters):
             """
             Forward propagation for a convolution  
             Arguments:
             A -- output activations of the previous layer, numpy array of shape (m, H,w)
             W -- Weights, numpy array of shape (f, f)
-            b -- Biases, numpy array of shape (1, 1, 1)
             hparameters --dictionary ( stride,pad)
                 
             Returns:
             Z -- conv output, numpy array of shape (m, H, W)
-            cache -for back propagation
+         
             """
 
             (m, H,W) = A.shape
@@ -81,7 +80,7 @@ class convolution():
                             
                             a_slice_prev = a_prev_pad[y_start:y_end, x_start:x_end, :]
                             
-                           
+            return Z       
           
                     
 
