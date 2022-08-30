@@ -36,18 +36,18 @@ class convolution():
             Z = Z + 1.0
             return Z
 
-        def forward(self,A):
+        def forward(self,A,batch):
             """
             Forward propagation for a convolution  
             Arguments:
-            A -- output activations of the previous layer, numpy array of shape (m, Height,width)
-                
+            A -- output activations of the previous layer, numpy array of shape ( Height,width)
+            batch for the numbers of input images
             Returns:
             Z -- conv output, numpy array of shape (m, Height, Width)
          
             """
 
-            (m, H,Width) = A.shape
+            (H,Width) = A.shape
             (f, f) = self.kernel.shape
            
             # Compute the dimensions of the CONV output volume 
@@ -55,12 +55,12 @@ class convolution():
             n_W = int((Width - f + 2 * self.padding) / self.stride) + 1
 
             # Initialize the output volume Z with zeros.
-            Z = np.zeros((m, n_H, n_W))
+            Z = np.zeros((n_H, n_W))
             
             # Create A_prev_pad by padding A_prev
             A_pad = self.zero_padding(A, self.padding)
              # loop over the batch of training examples
-            for i in range(m):                              
+            for i in range(batch):                              
                 a_prev_pad = A_pad[i]                             
                 for h in range(n_H):                          
                     for w in range(n_W):                       
@@ -71,7 +71,7 @@ class convolution():
                             x_end = x_start + f
                             
                             a_slice_prev = a_prev_pad[y_start:y_end, x_start:x_end, :]
-                            Z[i, h, w] = self.conv_step(a_slice_prev, self.kernel[:, :])
+                            Z[h, w] = self.conv_step(a_slice_prev, self.kernel[:, :])
                             
             return Z       
           
