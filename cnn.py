@@ -58,7 +58,7 @@ class convolution():
             Z = np.zeros((m, n_H, n_W))
             
             # Create A_prev_pad by padding A_prev
-            A_pad = zero_padding(A, self.padding)
+            A_pad = self.zero_padding(A, self.padding)
              # loop over the batch of training examples
             for i in range(m):                              
                 a_prev_pad = A_pad[i]                             
@@ -71,7 +71,7 @@ class convolution():
                             x_end = x_start + f
                             
                             a_slice_prev = a_prev_pad[y_start:y_end, x_start:x_end, :]
-                            Z[i, h, w] = conv_step(a_slice_prev, self.kernel[:, :])
+                            Z[i, h, w] = self.conv_step(a_slice_prev, self.kernel[:, :])
                             
             return Z       
           
