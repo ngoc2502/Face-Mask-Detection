@@ -43,7 +43,7 @@ class convolution():
             A -- output activations of the previous layer, numpy array of shape ( Height,width)
             batch for the numbers of input images
             Returns:
-            Z -- conv output, numpy array of shape (m, Height, Width)
+            Z -- conv output, numpy array of shape (Height, Width)
          
             """
 
