@@ -40,12 +40,10 @@ class convolution():
             """
             Forward propagation for a convolution  
             Arguments:
-            A -- output activations of the previous layer, numpy array of shape (m, H,w)
-            W -- Weights, numpy array of shape (f, f)
-            hparameters --dictionary ( stride,pad)
+            A -- output activations of the previous layer, numpy array of shape (m, Height,width)
                 
             Returns:
-            Z -- conv output, numpy array of shape (m, H, W)
+            Z -- conv output, numpy array of shape (m, Height, Width)
          
             """
 
