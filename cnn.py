@@ -4,11 +4,11 @@ import numpy as np
 
 
 class convolution():
-        def __init__(self,kernel,padding:0,strike:0,outputSize):
+        def __init__(self,kernel,padding,strike):
             self.kernel=kernel
             self.padding=padding
             self.strike=strike
-            self.outputSize=outputSize
+
 
         def zero_padding(self,A):
                 '''
@@ -18,7 +18,7 @@ class convolution():
                 '''
                 A_pad = np.pad(A,(self.padding))
                 return A_pad
-        def conv_step(self,a_slice, W):
+        def conv_step(self,a_slice):
             """
            
             Arguments:
@@ -31,12 +31,12 @@ class convolution():
             """
 
             # Element-wise
-            s = np.multiply(a_slice, W)
+            s = np.multiply(a_slice, self.kernel)
             Z = np.sum(s)
             Z = Z + 1.0
             return Z
 
-        def forward(self,A, W):
+        def forward(self,A):
             """
             Forward propagation for a convolution  
             Arguments:
@@ -49,12 +49,12 @@ class convolution():
          
             """
 
-            (m, H,W) = A.shape
-            (f, f) = W.shape
+            (m, H,Width) = A.shape
+            (f, f) = self.kernel.shape
            
             # Compute the dimensions of the CONV output volume 
             n_H = int((H - f + 2 * self.padding) / self.stride) + 1
-            n_W = int((W - f + 2 * self.padding) / self.stride) + 1
+            n_W = int((Width - f + 2 * self.padding) / self.stride) + 1
 
             # Initialize the output volume Z with zeros.
             Z = np.zeros((m, n_H, n_W))
@@ -73,7 +73,7 @@ class convolution():
                             x_end = x_start + f
                             
                             a_slice_prev = a_prev_pad[y_start:y_end, x_start:x_end, :]
-                            Z[i, h, w] = conv_step(a_slice_prev, W[:, :])
+                            Z[i, h, w] = conv_step(a_slice_prev, self.kernel[:, :])
                             
             return Z       
           
