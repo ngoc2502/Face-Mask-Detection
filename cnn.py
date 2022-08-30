@@ -36,15 +36,14 @@ class convolution():
             Z = Z + float(b)
             return Z
 
-        def conv_forward(A, W, b, parameters):
+        def forward(A, W, b, \parameters):
             """
-            Forward propagation for a convolution
-            
+            Forward propagation for a convolution  
             Arguments:
             A -- output activations of the previous layer, numpy array of shape (m, H,w)
             W -- Weights, numpy array of shape (f, f)
             b -- Biases, numpy array of shape (1, 1, 1)
-            hparameters -- python dictionary ( stride,pad)
+            hparameters --dictionary ( stride,pad)
                 
             Returns:
             Z -- conv output, numpy array of shape (m, H, W)
@@ -55,26 +54,25 @@ class convolution():
             
             # Retrieve dimensions from W's shape
             (f, f) = W.shape
-            
-            # Retrieve information from "hparameters"
-            stride = parameters['stride']
-            pad = parameters['pad']
-            
+           
             # Compute the dimensions of the CONV output volume 
             n_H = int((H - f + 2 * pad) / stride) + 1
             n_W = int((W - f + 2 * pad) / stride) + 1
-            
+                
+            # Retrieve information from "hparameters"
+            stride = parameters['stride']
+            pad = parameters['pad']
+
             # Initialize the output volume Z with zeros.
             Z = np.zeros((m, n_H, n_W))
             
             # Create A_prev_pad by padding A_prev
             A_pad = zero_padding(A, pad)
-            
-            for i in range(m):                               # loop over the batch of training examples
-                a_prev_pad = A_pad[i]                               # Select ith training example's padded activation
+             # loop over the batch of training examples
+            for i in range(m):                              
+                a_prev_pad = A_pad[i]                             
                 for h in range(n_H):                          
                     for w in range(n_W):                       
-                            
                             # Find the corners 
                             y_start = h * stride
                             y_end = y_start + f
