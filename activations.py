@@ -1,45 +1,57 @@
 import numpy as np
 
-class Activation():
-    def __init__(self,activ_for,activ_back):
-        self.activation=activ_for
-        self.activ_backprop=activ_back
 
-    def forward(self,input):
-        self.input=input
-        return self.activation()
-
-    def backward(self):
-        #
-        pass
-
-
-class Relu(Activation):
-    def __init__(self):
-        def ReLu_forward(x):
+class Relu():
+        def __init__(self,x):
+            self.x=x
+        def ReLu_forward(self):
             '''
             forward ReLu activation give the output=max(0,x)
             '''
-            return np.maximum(0,x) 
+            return np.maximum(0,self.x) 
 
-        def ReLu_backprop(x):
+        def ReLu_backprop(self):
             res=0
-            if x<=0:
+            if self.x<=0:
                 return res
             else:
                 return 1
-        super().__init__(ReLu_forward,ReLu_backprop)
 
 
-class Sigmoi(Activation):
-    def __init__(self):
-        def sigmoi_forward(x):
-            return 1/1+np.exp(-x)
+class Sigmoi():
+        def __init__(self,x):
+            self.x=x
+
+        def sigmoi_forward(self):
+            return 1/1+np.exp(-self.x)
                 
-        def sigmoi_backward(x):
-            return sigmoi_forward(x)*(1-sigmoi_forward(x))
+        def sigmoi_backward(self):
+            return self.sigmoi_forward()*(1-self.sigmoi_forward())
         
-        super().__init__(sigmoi_forward,sigmoi_backward)
+class softmax():
+        def __init__(self,x:np.array):
+            self.x=x
+
+        def forward(self):
+            sum=np.exp(self.x).sum()
+            res=np.zeros(len(self.x))
+            for i in range(len(self.x)):
+                res[i]=np.exp(self.x[i])/sum
+            return res
+        
+        def backward(self):
+            I=np.eye(len(self.x))
+            res=self.forward()*(I-self.forward())
+            return res
+
+a=[1,0.52,0.83,0.08,0.251,0.56]
+s=softmax(a)
+f=s.forward()
+
+b=s.backward()
+print(f)
+print('============================================================')
+print(b)
 
 
     
