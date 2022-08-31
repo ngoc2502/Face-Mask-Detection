@@ -6,9 +6,11 @@ class Activation():
         self.activ_backprop=activ_back
 
     def forward(self,input):
-        pass
+        self.input=input
+        return self.activation()
 
     def backward(self):
+        #
         pass
 
 
