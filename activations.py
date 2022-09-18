@@ -1,6 +1,5 @@
 import numpy as np
 
-
 class Relu():
         def __init__(self,x):
             self.x=x
@@ -44,7 +43,7 @@ class softmax():
             res=self.forward()*(I-self.forward())
             return res
 
-a=[1,0.52,0.83,0.08,0.251,0.56]
+a=[1,5.21,1.83,1.08,1.251,-2.56]
 s=softmax(a)
 f=s.forward()
 
