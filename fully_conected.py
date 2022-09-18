@@ -154,7 +154,6 @@ def train_nnet(X, Y, val_X, val_Y,
         val_A = compute_nnet_outputs(Ws, val_X, False)
         val_err = np.mean(np.argmax(val_A, axis=1) != val_Y) * 100
         val_errs.append(val_err)
-        print('Epoch %d, train err %.3f%%, val err %.3f%%' %(epoch, err, val_err))
-            
+        print('Epoch %d, train err %.3f%%, val err %.3f%%' %(epoch, err, val_err))      
     return Ws, errs, val_errs
 
