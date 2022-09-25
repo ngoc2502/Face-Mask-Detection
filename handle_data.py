@@ -1,11 +1,7 @@
-from cProfile import label
-from codecs import ignore_errors
-import pandas as pd 
 import pandas as pd
 import os
 import xml.etree.ElementTree as ET
 from PIL import Image
-
 
 def getdata(path):
     # Create paths
@@ -21,6 +17,7 @@ def getdata(path):
                 images_path.append(file_path)
 
     #check if loaded all data
+    print(len(images_path))
     if len(images_path) == 853:
         print("Ok Load done")
     else:
@@ -49,7 +46,6 @@ def getdata(path):
             df = df.append(r, ignore_index=True)
     return annotations_path,images_path,df
 
-  
 def train_test_valid_split(df):
     Ytest=df.sample(frac=0.1, replace=False)
     Xtest=pd.DataFrame(columns=['file_name'])   
@@ -65,20 +61,18 @@ def train_test_valid_split(df):
 
     return  Xtrain,Ytrain,Xtest,Ytest,Xvali,Yvali
 
+# path='E:/UwayInternshipLearning/FaceMaskDetection/Face-Mask-Detection/input'
+# xml_path,image_path,df=getdata(path)
+# train_X, train_Y, test_X, test_Y, val_X, val_Y=train_test_valid_split(df)
 
+# print('train_X.shape =', train_X.shape)
+# print('train_Y.shape =', train_Y.shape)
+# print('val_X.shape   =', val_X.shape)
+# print('val_Y.shape   =', val_Y.shape)
+# print('test_X.shape  =', test_X.shape)
+# print('test_Y.shape  =', test_Y.shape)
 
-path='E:/UwayInternshipLearning/FaceDetection/data2/input'
-xml_path,image_path,df=getdata(path)
-train_X, train_Y, test_X, test_Y, val_X, val_Y=train_test_valid_split(df)
-
-print('train_X.shape =', train_X.shape)
-print('train_Y.shape =', train_Y.shape)
-print('val_X.shape   =', val_X.shape)
-print('val_Y.shape   =', val_Y.shape)
-print('test_X.shape  =', test_X.shape)
-print('test_Y.shape  =', test_Y.shape)
-
-img=Image.open(image_path[5])
-img.show()
+# img=Image.open(image_path[5])
+# img.show()
 
 

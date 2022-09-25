@@ -22,10 +22,18 @@ class Sigmoi():
             self.x=x
 
         def sigmoi_forward(self):
-            return 1/1+np.exp(-self.x)
+            res=np.zeros(len(self.x))
+            for i in range(len(self.x)):
+                res[i]=1/1+np.exp(-self.x[i])
+            return res
                 
         def sigmoi_backward(self):
-            return self.sigmoi_forward()*(1-self.sigmoi_forward())
+            res=np.zeros(len(self.x))
+            forwsig=self.sigmoi_forward()
+            for i in range(len(self.x)):
+                res[i]=forwsig[i]*(1-forwsig[i])
+            return res
+        
         
 class softmax():
         def __init__(self,x:np.array):
@@ -43,14 +51,18 @@ class softmax():
             res=self.forward()*(I-self.forward())
             return res
 
-a=[1,5.21,1.83,1.08,1.251,-2.56]
-s=softmax(a)
-f=s.forward()
-
-b=s.backward()
-print(f)
-print('============================================================')
-print(b)
+# a=[1,5.21,1.83,1.08,1.251,-2.56]
+# # s=softmax(a)
+# s=softmax(a)
+# f=s.forward()
+# sum=0.0
+# for i in f:
+#     sum+=i
+# print(sum)
+# b=s.backward()
+# print(f)
+# print('============================================================')
+# print(b)
 
 
     

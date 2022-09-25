@@ -19,7 +19,7 @@ def conv_step(k,b,a_slice_pre):
             Z = Z + b
             return Z
 
-class convolution():
+class convolution:
         def __init__(self,A,kernel,padding,strike,b):
             # n_ker is the number of kernel applided for A 
             # numpy arr of shape (f,f,n_preKer,n_ker)
@@ -162,25 +162,26 @@ class convolution():
                 dA_prev[i, :, :, :] = da_prev_pad[:,:,:]
                 # Making sure output shape is correct
             assert(dA_prev.shape == (batch, n_H_prev, n_W_prev, n_C_prev))
-            return dA_prev, dW, db    
+            return dA_prev, dW, db     
 
-#   TEST FORWARD AND BACKWARD FUNCT 
-np.random.seed(1)
-A = np.random.randn(4,3,3,2)
+# #   TEST FORWARD AND BACKWARD FUNCT 
+# np.random.seed(1)
+# A = np.random.randn(4,3,3,2)
 kernel = np.random.randn(3,3,2,5)
-b=np.ones((1,1,1,5))
-size=A.shape
-C=convolution(A,kernel,0,1,b)
-Z,cache=C.forward()
-Da,Dk,db=C.backward(Z,cache)
+print(kernel)
+# b=np.ones((1,1,1,5))
+# size=A.shape
+# C=convolution(A,kernel,0,1,b)
+# Z,cache=C.forward()
+# Da,Dk,db=C.backward(Z,cache)
 
-print(Da)
-print(Da.shape)
-print(Dk)
-print(Dk.shape)
+# print(Da)
+# print(Da.shape)
+# print(Dk)
+# print(Dk.shape)
 
 # TEST CONV_STEP _ PASS
-# kernel=np.array([[1,0,1],[0,1,0],[1,0,1]])
+# kernel=np.array([[1,0,1],[0,1,0],[1,0,1]]) 
 # A_slide=np.array([[1,0,0],[1,1,0],[1,1,1]])
 # def conv_step(k,a_slice_pre):
 #             """

@@ -6,17 +6,15 @@ class Pooling():
         self.size=size        
 
     def max_pool2d_forward(self,A):
-
         '''
         Forward propagation for a pooling, help reduce computation
-        
-        Arguments:
-        A -- output of the previous layers, SHAPE(batch,height,width,n_chanel)
-        Returns:
-        Z -- pooling output, numpy array 
-
-        batch -- for the numbers of input images
+            Arguments:
+                A -- output of the previous layers, SHAPE(batch,height,width,n_chanel)
+            Returns:
+                Z -- pooling output, numpy array\n 
+                batch -- for the numbers of input images
         '''
+
         (batch,Height,Width,n_chanel)=A.shape
         (f,f)=self.size
         # compute the dimensions of Pooling output volumn
@@ -31,13 +29,11 @@ class Pooling():
             for h in range(n_H):
                 for w in range(n_W):
                     for c in range(n_chanel):
-
                         # Find current position of kernel
                         y_s=h*self.strike
                         y_e=y_s+f
                         x_s=w*self.strike
                         x_e=x_s+f
-
                         a_slice=A[i,y_s:y_e,x_s:x_e,:]
                         Z[i,h,w,c]=np.max(a_slice)   
         cache=A
@@ -45,21 +41,19 @@ class Pooling():
 
     def mean_pool2d_forward(self,A,batch):
         '''
-        Forward propagation for a pooling, help reduce computation
-        
+        Forward propagation for a pooling, help reduce computation\n
         Arguments:
-        A -- output of the previous layers, SHAPE(batch,height,width,n_chanel)
+            A -- output of the previous layers, SHAPE(batch,height,width,n_chanel)
         Returns:
-        Z -- pooling output, numpy array of shape 
+            Z -- pooling output, numpy array of shape \n
+            batch -- the numbers of input images
 
-        batch for the numbers of input images
         '''
         (Height,Width)=A.shape
         (f,f)=self.size
         # compute the dimensions of Pooling output volumn
         n_H= int((Height-f)/self.strike)+1
         n_W=int((Width-f)/self.strike)+1
-
         # Initialize the output volumn Z with zeros
         Z = np.zeros((n_H,n_W))
 
@@ -72,22 +66,18 @@ class Pooling():
                     y_e=y_s+f
                     x_s=w*self.strike
                     x_e=x_s+f
-
                     a_slice=A[x_s:x_e,y_s:y_e]
                     Z[h,w]=np.mean(a_slice)
-                    
         return Z
 
     def pool_backward(self,dA, cache):
         """
         Implements the backward
-        
-        Arguments:
-        dA -- gradient of cost with respect to the output of the pooling layer, same shape as A
-        cache -- cache output from the forward pass of the pooling layer, contains the layer's input and hparameters 
-        
-        Returns:
-        dA_prev -- gradient of cost with respect to the input of the pooling layer, same shape as A_prev
+            Arguments:
+                dA -- gradient of cost with respect to the output of the pooling layer, same shape as A\n
+                cache -- cache output from the forward pass of the pooling layer, contains the layer's input and hparameters 
+            Returns:
+                dA_prev -- gradient of cost with respect to the input of the pooling layer, same shape as A_prev
         """
         A_prev= cache        
         
@@ -115,22 +105,22 @@ class Pooling():
     def mean_pool2d_backward():
         pass
 
-np.random.seed(1)
-A_pre = np.random.randn(5,5,3,2)
-print(A_pre.shape)
-print(A_pre)
+# np.random.seed(1)
+# A_pre = np.random.randn(5,5,3,2)
+# print(A_pre.shape)
+# print(A_pre)
 
-print('**************************************************')
-P=Pooling(1,(2,2))
-resForW,cache=P.max_pool2d_forward(A_pre)
-print(resForW)
-print(resForW.shape)
-dA=np.random.randn(5,4,2,2)
-resBackW=P.pool_backward(dA,cache)
+# print('**************************************************')
+# P=Pooling(1,(2,2))
+# resForW,cache=P.max_pool2d_forward(A_pre)
+# print(resForW)
+# print(resForW.shape)
+# dA=np.random.randn(5,4,2,2)
+# resBackW=P.pool_backward(dA,cache)
 
-print('**************************************************')
-print(resBackW)
-print(resBackW.shape)
+# print('**************************************************')
+# print(resBackW)
+# print(resBackW.shape)
 
 '''
 convert:
